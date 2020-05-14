@@ -1,0 +1,53 @@
+# Copyright 2020 Pants project contributors.
+# Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+[GLOBAL]
+pants_version = "1.28.0rc0"
+v1 =  false  # Turn off the v1 execution engine.
+v2 = true  # Enable the v2 execution engine.
+v2_ui = true  # Enable the v2 execution engine's terminal-based UI.
+
+backend_packages = []  # Deregister all v1 backends.
+
+# List v2 backends here.
+backend_packages2.add = [
+  'pants.backend.awslambda.python',
+  'pants.backend.codegen.protobuf.python',
+  'pants.backend.python',
+  'pants.backend.python.lint.docformatter',
+  'pants.backend.python.lint.black',
+  'pants.backend.python.lint.flake8',
+  'pants.backend.python.lint.isort',
+]
+
+# List v2 plugins here.
+plugins2 = []
+
+[source]
+# The Python source root is the repo root. See https://pants.readme.io/docs/source-roots.
+root_patterns = [
+    "src/python/library1",
+    "src/python/project1",
+    "src/python/project2",
+]
+
+[python-setup]
+# The default interpreter compatibility for code in this repo. Individual targets can ovverride
+#  this with the `compatibility` field. See
+#  https://pants.readme.io/docs/python-interpreter-compatibility.
+interpreter_constraints = [">=3.7"]
+# Use a lockfile. See https://pants.readme.io/docs/python-third-party-dependencies.
+requirement_constraints = "constraints.txt"
+
+[lint]
+# We use `per_target_caching` because we have some Python 2-only targets and some Python 3-only
+# targets, so we need to run each target as a separate process to avoid interpreter compatibility
+# conflicts. If you only have one Python version in your repository, do not use this setting. See
+# https://pants.readme.io/docs/python-lint-goal.
+per_target_caching = true
+
+[flake8]
+config = ".flake8"
+
+[isort]
+config = [".isort.cfg"]

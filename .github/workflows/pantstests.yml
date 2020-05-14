@@ -1,0 +1,45 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Pants Testing
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+#    - name: Lint
+#      run: |
+#        ./ci-lint.sh
+    - name: Test
+      run: |
+        ./ci-test.sh
+    - name: Build pex
+      run: |
+        ./ci-binary.sh
+    - uses: actions/upload-artifact@v2
+      with:
+        name: project-pex-${{ matrix.python-version }}
+        path: dist/*.pex
+#    - name: Build and publish
+#      env:
+#        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+#        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+#      run: |
+#        ./ci-bdist.sh
+#        twine upload dist/*.whl
