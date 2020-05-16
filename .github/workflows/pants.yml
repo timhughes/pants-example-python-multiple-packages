@@ -16,7 +16,8 @@ jobs:
     strategy:
       matrix:
         python-version: [3.7, 3.8]
-
+    env:
+      PANTS_CONFIG_FILES: pants.ci.toml
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -25,21 +26,21 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Lint
       run: |
-        ./ci-lint.sh
+        ./pants lint ::
     - name: Test
       run: |
         mkdir -p dist/
-        ./ci-test.sh
+        ./pants test ::
     - name: Build pex
       run: |
-        ./ci-binary.sh
+        ./pants binary ::
     - uses: actions/upload-artifact@v2
       with:
         name: pexs-${{ matrix.python-version }}
         path: dist/*.pex
     - name: Build wheel
       run: |
-        ./ci-setup-py.sh
+        ./pants setup-py --args="bdist_wheel" ::
     - uses: actions/upload-artifact@v2
       with:
         name: wheels-${{ matrix.python-version }}

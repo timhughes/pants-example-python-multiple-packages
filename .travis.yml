@@ -10,7 +10,9 @@ env:
 os: linux
 dist: bionic
 language: python
-python: 3.7
+python:
+  - 3.7
+  - 3.8
 
 cache:
   directories:
@@ -21,5 +23,9 @@ install:
   - ./pants --version  # This will bootstrap Pants
 
 script:
-  - ./pants --changed-since=origin/master lint
-  - ./pants --changed-since=origin/master --changed-include-dependees=transitive test
+  - ./pants lint '::'  # these need quoting for travis
+  - mkdir -p dist/ # needed for coverage/xunit output
+  - ./pants test '::'
+  - ./pants binary '::'
+  - ./pants setup-py --args="bdist_wheel" '::'
+

@@ -6,6 +6,21 @@ This code is a derivative of https://github.com/pantsbuild/example-python
 
 See https://pants.readme.io/ for much more detailed documentation.
 
+## Projects
+
+This repository contains 4 projects. These projects are all under `src/python` but you can put them wherever you want 
+as long as you update `root_patterns` in `pants.toml`.
+
+`root_patterns` are the roots of the python import namespace.
+
+- `binary_project1`: Binary project with dependency on `library_project1` and uses a `src` directory. You need 2 `BUILD`
+  files.
+- `binary_project2`: Binary project no dependencies and no `src` directory. This means yo can use a single `BUILD` file.
+- `library_project1`: Library project for use by `binary_project1`. This never gets built as an artifact.
+- `setuppy_project1`: Python application with entry_point that can be built using setuptools in to a `tar`, `whl`, `egg`
+  or whatever else setuptools can create.
+
+
 ## Running Pants
 
 You run Pants goals using the `./pants` wrapper script, which will bootstrap the
