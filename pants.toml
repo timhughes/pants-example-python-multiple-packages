@@ -26,9 +26,12 @@ plugins2 = []
 [source]
 # The Python source root is the repo root. See https://pants.readme.io/docs/source-roots.
 root_patterns = [
-    "src/python/library1",
-    "src/python/project1",
-    "src/python/project2",
+    "src/python/library1/src",
+    "src/python/library1/tests",
+    "src/python/project1/src",
+    "src/python/project1/tests",
+    "src/python/project2/src",
+    "src/python/project2/tests",
 ]
 
 [python-setup]

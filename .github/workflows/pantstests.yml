@@ -23,9 +23,9 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
-#    - name: Lint
-#      run: |
-#        ./ci-lint.sh
+    - name: Lint
+      run: |
+        ./ci-lint.sh
     - name: Test
       run: |
         ./ci-test.sh
