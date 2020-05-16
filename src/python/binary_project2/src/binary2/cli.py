@@ -1,5 +1,5 @@
 def main():
-    print("project2.cli")
+    print("binary2.cli")
 
 
 if __name__ == "__main__":

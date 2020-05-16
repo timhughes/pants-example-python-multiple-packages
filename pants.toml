@@ -26,12 +26,14 @@ plugins2 = []
 [source]
 # The Python source root is the repo root. See https://pants.readme.io/docs/source-roots.
 root_patterns = [
-    "src/python/library1/src",
-    "src/python/library1/tests",
-    "src/python/project1/src",
-    "src/python/project1/tests",
-    "src/python/project2/src",
-    "src/python/project2/tests",
+    "src/python/binary_project1/src",
+    "src/python/binary_project1/tests",
+    "src/python/binary_project2/src",
+    "src/python/binary_project2/tests",
+    "src/python/library_project1/src",
+    "src/python/library_project1/tests",
+    "src/python/setuppy_project1/src",
+    "src/python/setuppy_project1/tests",
 ]
 
 [python-setup]
@@ -54,3 +56,12 @@ config = ".flake8"
 
 [isort]
 config = [".isort.cfg"]
+
+[pytest]
+args = ["-v"]
+version = "pytest>=5.4"
+pytest_plugins.add = [
+  "pytest-icdiff",
+  "pygments",
+]
+junit_xml_dir = "dist/pytest_results"

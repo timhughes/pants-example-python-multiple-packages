@@ -28,18 +28,25 @@ jobs:
         ./ci-lint.sh
     - name: Test
       run: |
+        mkdir -p dist/
         ./ci-test.sh
     - name: Build pex
       run: |
         ./ci-binary.sh
     - uses: actions/upload-artifact@v2
       with:
-        name: project-pex-${{ matrix.python-version }}
+        name: pexs-${{ matrix.python-version }}
         path: dist/*.pex
-#    - name: Build and publish
+    - name: Build wheel
+      run: |
+        ./ci-setup-py.sh
+    - uses: actions/upload-artifact@v2
+      with:
+        name: wheels-${{ matrix.python-version }}
+        path: dist/*.whl
+#    - name: Publish
 #      env:
 #        TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
 #        TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
 #      run: |
-#        ./ci-bdist.sh
 #        twine upload dist/*.whl
