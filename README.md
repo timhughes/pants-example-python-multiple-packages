@@ -1,5 +1,6 @@
 # pants-example-python-multiple-packages
-[![Pants](https://github.com/timhughes/pants-example-python-multiple-packages/workflows/Pants/badge.svg)](https://github.com/timhughes/pants-example-python-multiple-packages/actions?query=workflow%3APants)
+[![Github Actions Pants](https://github.com/timhughes/pants-example-python-multiple-packages/workflows/Pants/badge.svg)](https://github.com/timhughes/pants-example-python-multiple-packages/actions?query=workflow%3APants)
+[![Travis Build Status](https://travis-ci.com/timhughes/pants-example-python-multiple-packages.svg?branch=master)](https://travis-ci.com/timhughes/pants-example-python-multiple-packages)
 
 An example repository to demonstrate multi-package monorepo support for Python in Pants v2.
 This code is a derivative of https://github.com/pantsbuild/example-python 
