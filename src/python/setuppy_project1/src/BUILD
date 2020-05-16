@@ -26,7 +26,9 @@ python_library(
             "Programming Language :: Python :: 3.8",
         ],
     ).with_binaries(
-        {"my_setuppy1_command": ":setuppy1"},
+        # Use a dict for multiple entry_points
+        # https://pants.readme.io/docs/python-setup-py-goal
+        my_setuppy1_command=":setuppy1",
     ),
 )
 
